@@ -25,7 +25,7 @@ namespace Timezone
             }
             catch (Exception e)
             {
-                Console.WriteLine(String.Format("An exception has occured causing this program to fail.\n\n Exceptions message - {0}", e.Message));
+                Console.WriteLine(string.Format("An exception has occured causing this program to fail.\n\n Exceptions message - {0}", e.Message));
             }
             finally {
                 Console.WriteLine("\n\nThe programme has completed, press any key to finish");
