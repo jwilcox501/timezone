@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Timezone
 {
@@ -11,22 +8,28 @@ namespace Timezone
     {        
         static void Main(string[] args)
         {
-            Parser timeZoneParser = new Parser();
-            TimeZoneInfoMapper mapper = new TimeZoneInfoMapper();
-            TimeZoneInfo tzInfo = TimeZoneInfo.Local;
-            using (Reader fileReader = new Reader())
+            try
             {
-                List<Tuple<string, string>> lTimes = fileReader.Read();
-                foreach (var t in lTimes) {
-                    if (mapper.HasMapping(t.Item2, ref tzInfo))
-                    {
-                        Console.WriteLine(tzInfo.Id);
-                    }
-                    else {
-                        Console.WriteLine("Error: TimeZone mapping is unavailable for " + t.Item2);
-                    }
-                }
+                Parser timeZoneParser = new Parser();
 
+                string timeZoneInfoId = string.Empty;
+                using (Reader fileReader = new Reader())
+                {
+                    List<Tuple<string, string>> lTimes = fileReader.Read();
+                    foreach (var t in lTimes)
+                    {
+                        timeZoneParser.DisplayTime(t.Item1, t.Item2);
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(String.Format("An exception has occured causing this program to fail.\n\n Exceptions message - {0}", e.Message));
+            }
+            finally {
+                Console.WriteLine("\n\nThe programme has completed, press any key to finish");
+                Console.ReadLine();
             }
         }
     }
