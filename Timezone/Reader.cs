@@ -38,8 +38,10 @@ namespace Timezone
 
         private void GetResouce() {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream("Timezone.Timezone.txt"));
-            timeZoneTxt.Append(reader.ReadToEnd());
+            using (StreamReader reader = new StreamReader(assembly.GetManifestResourceStream("Timezone.Timezone.txt")))
+            {
+                timeZoneTxt.Append(reader.ReadToEnd());
+            }
         }
 
         public void Dispose()
