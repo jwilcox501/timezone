@@ -12,9 +12,21 @@ namespace Timezone
         static void Main(string[] args)
         {
             Parser timeZoneParser = new Parser();
+            TimeZoneInfoMapper mapper = new TimeZoneInfoMapper();
+            TimeZoneInfo tzInfo = TimeZoneInfo.Local;
             using (Reader fileReader = new Reader())
             {
                 List<Tuple<string, string>> lTimes = fileReader.Read();
+                foreach (var t in lTimes) {
+                    if (mapper.HasMapping(t.Item2, ref tzInfo))
+                    {
+                        Console.WriteLine(tzInfo.Id);
+                    }
+                    else {
+                        Console.WriteLine("Error: TimeZone mapping is unavailable for " + t.Item2);
+                    }
+                }
+
             }
         }
     }
